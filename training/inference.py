@@ -6,8 +6,8 @@ import os
 import argparse
 import csv
 
-from training.utils.config_utils import load_yaml
-from training.vis_utils import ImgLoader
+from utils.config_utils import load_yaml
+from vis_utils import ImgLoader
 
 def build_model(pretrainewd_path: str,
                 img_size: int, 
@@ -18,7 +18,7 @@ def build_model(pretrainewd_path: str,
                 use_selection: bool = True,
                 use_combiner: bool = True, 
                 comb_proj_size: int = None):
-    from training.models.pim_module.pim_module_eval import PluginMoodel
+    from models.pim_module.pim_module_eval import PluginMoodel
 
     model = \
         PluginMoodel(img_size = img_size,
@@ -81,18 +81,27 @@ if __name__ == "__main__":
                         num_selects = args.num_selects)
     model.cuda()
 
+    # ===== 2. prediction =====
     output = [
         ["id", "label"],
     ]
     img_loader = ImgLoader(img_size = args.data_size)
+
+    classes = os.listdir('./dataset/train')
+    classes.sort()
     
-    files = os.listdir(args.image_root)
+    files = sorted(os.listdir(args.image_root))
+    files = [f for f in files if f.lower() != 'desktop.ini']
+    print(f"test: {len(files)} images")
     imgs = []
+    img_names = []
+    img_preds = []
     for fi, f in enumerate(files):
         img_path = args.image_root + "/" + f
         img, ori_img = img_loader.load(img_path)
         img = img.unsqueeze(0) # add batch size dimension
         imgs.append(img)
+        img_names.append(f.split('.')[0])
         if (fi+1) % 32 == 0 or fi == len(files) - 1:    
             imgs = torch.cat(imgs, dim=0)
         else:
@@ -103,8 +112,17 @@ if __name__ == "__main__":
             sum_outs = sum_all_out(outs, sum_type="softmax") # softmax
             preds = torch.sort(sum_outs, dim=-1, descending=True)[1]
             for bi in range(preds.size(0)):
-                print(preds[bi, 0])
+                img_preds.append(classes[int(preds[bi, 0])])
+            
+        for pair in zip(img_names, img_preds):
+            print(list(pair))
+            output.append(list(pair))
+        imgs = []
+        img_names = []
+        img_preds = []
 
-    with open("output.csv", mode='w', newline='') as file:
+    with open("../output.csv", mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerows(output)
+
+    print('done')
