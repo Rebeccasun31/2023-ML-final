@@ -1,0 +1,27 @@
+2023-12-28 17:53:11,471 INFO    MainThread:4402 [wandb_setup.py:_flush():76] Current SDK version is 0.16.1
+2023-12-28 17:53:11,472 INFO    MainThread:4402 [wandb_setup.py:_flush():76] Configure stats pid to 4402
+2023-12-28 17:53:11,472 INFO    MainThread:4402 [wandb_setup.py:_flush():76] Loading settings from /root/.config/wandb/settings
+2023-12-28 17:53:11,472 INFO    MainThread:4402 [wandb_setup.py:_flush():76] Loading settings from /content/drive/MyDrive/course/112-1/ML/Final/ML_final/FGVC-HERBS/wandb/settings
+2023-12-28 17:53:11,472 WARNING MainThread:4402 [wandb_setup.py:_flush():76] Unknown environment variable: WANDB_SERVICE
+2023-12-28 17:53:11,473 INFO    MainThread:4402 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-12-28 17:53:11,473 INFO    MainThread:4402 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-12-28 17:53:11,473 INFO    MainThread:4402 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'main.py', 'program_abspath': '/content/drive/MyDrive/course/112-1/ML/Final/ML_final/FGVC-HERBS/main.py', 'program': '/content/drive/MyDrive/course/112-1/ML/Final/ML_final/FGVC-HERBS/main.py'}
+2023-12-28 17:53:11,474 INFO    MainThread:4402 [wandb_init.py:_log_setup():524] Logging user logs to /content/drive/MyDrive/course/112-1/ML/Final/ML_final/FGVC-HERBS/wandb/run-20231228_175311-yydkpkxg/logs/debug.log
+2023-12-28 17:53:11,475 INFO    MainThread:4402 [wandb_init.py:_log_setup():525] Logging internal logs to /content/drive/MyDrive/course/112-1/ML/Final/ML_final/FGVC-HERBS/wandb/run-20231228_175311-yydkpkxg/logs/debug-internal.log
+2023-12-28 17:53:11,475 INFO    MainThread:4402 [wandb_init.py:init():564] calling init triggers
+2023-12-28 17:53:11,475 INFO    MainThread:4402 [wandb_init.py:init():571] wandb.init called with sweep_config: {}
+config: {'c': './configs/config.yaml', 'project_name': 'FGVC-HERBS', 'notes': 'no inverse', 'exp_name': 'basline', 'use_wandb': True, 'wandb_entity': 'poyung', 'train_root': './dataset/train/', 'val_root': './dataset/test/', 'data_size': 384, 'num_workers': 2, 'batch_size': 8, 'model_name': 'swin-t', 'pretrained': None, 'optimizer': 'SGD', 'max_lr': 0.0005, 'wdecay': 0.0003, 'max_epochs': 80, 'warmup_batchs': 1500, 'use_amp': True, 'use_fpn': True, 'fpn_size': 1536, 'use_selection': True, 'num_classes': 200, 'num_selects': {'layer1': 256, 'layer2': 128, 'layer3': 64, 'layer4': 32}, 'use_combiner': True, 'lambda_b0': 1.375, 'lambda_b': 0.3, 'lambda_s': 0.0, 'lambda_n': 5.0, 'lambda_c': 1.0, 'update_freq': 4, 'log_freq': 100, 'eval_freq': 10, 'temperature': 64, 'save_dir': './records/FGVC-HERBS/basline/', 'device': device(type='cpu')}
+2023-12-28 17:53:11,476 INFO    MainThread:4402 [wandb_init.py:init():614] starting backend
+2023-12-28 17:53:11,476 INFO    MainThread:4402 [wandb_init.py:init():618] setting up manager
+2023-12-28 17:53:11,497 INFO    MainThread:4402 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-12-28 17:53:11,499 INFO    MainThread:4402 [wandb_init.py:init():624] backend started and connected
+2023-12-28 17:53:11,535 INFO    MainThread:4402 [wandb_init.py:init():716] updated telemetry
+2023-12-28 17:53:14,555 INFO    MainThread:4402 [wandb_init.py:init():749] communicating run to backend with 90.0 second timeout
+2023-12-28 17:53:14,774 ERROR   MainThread:4402 [wandb_init.py:init():775] encountered error: It appears that you do not have permission to access the requested resource. Please reach out to the project owner to grant you access. If you have the correct permissions, verify that there are no issues with your networking setup.(Error 404: Not Found)
+2023-12-28 17:53:14,965 ERROR   MainThread:4402 [wandb_init.py:init():1188] It appears that you do not have permission to access the requested resource. Please reach out to the project owner to grant you access. If you have the correct permissions, verify that there are no issues with your networking setup.(Error 404: Not Found)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/wandb/sdk/wandb_init.py", line 1170, in init
+    run = wi.init()
+  File "/usr/local/lib/python3.10/dist-packages/wandb/sdk/wandb_init.py", line 781, in init
+    raise error
+wandb.errors.CommError: It appears that you do not have permission to access the requested resource. Please reach out to the project owner to grant you access. If you have the correct permissions, verify that there are no issues with your networking setup.(Error 404: Not Found)
