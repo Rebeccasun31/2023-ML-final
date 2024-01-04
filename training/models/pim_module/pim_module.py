@@ -428,9 +428,9 @@ class PluginMoodel(nn.Module):
             for name in outs:
                 fs_size = outs[name].size()
                 if len(fs_size) == 3:
-                    out_size = fs_size.size(-1)
+                    out_size = outs[name].size(-1)
                 elif len(fs_size) == 4:
-                    out_size = fs_size.size(1)
+                    out_size = outs[name].size(1)
                 else:
                     raise ValueError("The size of output dimension of previous must be 3 or 4.")
             self.classifier = nn.Linear(out_size, num_classes)
