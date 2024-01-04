@@ -252,8 +252,8 @@ def evaluate(args, model, test_loader):
             if "ori_out" in outs:
                 this_name = "original"
                 _cal_evalute_metric(corrects, total_samples, outs["ori_out"], labels, this_name)
-        
-            _average_top_k_result(corrects, total_samples, scores, labels)
+            else:
+                _average_top_k_result(corrects, total_samples, scores, labels)
 
             eval_progress = (batch_id + 1) / total_batchs
             
