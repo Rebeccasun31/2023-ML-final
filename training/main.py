@@ -238,7 +238,10 @@ def train(args, epoch, model, scaler, amp_context, optimizer, schedule, train_lo
             msg = {}
             msg['info/epoch'] = epoch + 1
             msg['info/lr'] = get_lr(optimizer)
-            cal_train_metrics(args, msg, outs, labels, batch_size, model.selector.thresholds)
+            if args.use_selection:
+                cal_train_metrics(args, msg, outs, labels, batch_size, model.selector.thresholds)
+            else:
+                cal_train_metrics(args, msg, outs, labels, batch_size, None)
             wandb.log(msg)
         
         train_progress = (batch_id + 1) / total_batchs
