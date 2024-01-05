@@ -78,7 +78,10 @@ if __name__ == "__main__":
                         img_size = args.data_size, 
                         fpn_size = args.fpn_size, 
                         num_classes = args.num_classes,
-                        num_selects = args.num_selects)
+                        num_selects = args.num_selects,
+                        use_fpn = args.use_fpn, 
+                        use_selection = args.use_selection,
+                        use_combiner = args.use_combiner)
     model.cuda()
 
     # ===== 2. prediction =====
