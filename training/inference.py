@@ -112,8 +112,12 @@ if __name__ == "__main__":
         with torch.no_grad():
             imgs = imgs.cuda()
             outs = model(imgs)
-            sum_outs = sum_all_out(outs, sum_type="softmax") # softmax
-            preds = torch.sort(sum_outs, dim=-1, descending=True)[1]
+            if not args.use_fpn and not args.use_selection and not args.use_combiner: # only backbone
+                preds = torch.sort(outs['ori_out'], dim=-1, descending=True)[1]
+            else:
+                sum_outs = sum_all_out(outs, sum_type="softmax") # softmax
+                preds = torch.sort(sum_outs, dim=-1, descending=True)[1]
+                
             for bi in range(preds.size(0)):
                 img_preds.append(classes[int(preds[bi, 0])])
             
