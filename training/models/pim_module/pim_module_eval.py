@@ -438,11 +438,11 @@ class PluginMoodel(nn.Module):
             for name in outs:
                 fs_size = outs[name].size()
                 if len(fs_size) == 3:
-                    out_size = fs_size.size(-1)
+                    out_size = outs[name].size(-1)
                 elif len(fs_size) == 4:
-                    out_size = fs_size.size(1)
+                    out_size = outs[name].size(1)
                 else:
-                    raise ValusError("The size of output dimension of previous must be 3 or 4.")
+                    raise ValueError("The size of output dimension of previous must be 3 or 4.")
             self.classifier = nn.Linear(out_size, num_classes)
 
         ### = = = = = FPN = = = = =
@@ -569,7 +569,7 @@ class PluginMoodel(nn.Module):
             logits['comb_outs'] = comb_outs
             return logits
         
-        if self.use_selection or self.fpn:
+        if self.use_selection or self.use_fpn:
             return logits
 
         ### original backbone (only predict final selected layer)
@@ -582,6 +582,6 @@ class PluginMoodel(nn.Module):
         else:
             hs = hs.mean(1)
         out = self.classifier(hs)
-        logits['ori_out'] = logits
+        logits['ori_out'] = out
 
         return logits
